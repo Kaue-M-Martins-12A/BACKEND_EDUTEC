@@ -8,7 +8,6 @@ const port = 3333;
 app.use(cors());
 app.use(express.json());
 
-// Conexão com o banco
 const db = mysql.createConnection({
   host: "benserverplex.ddns.net",
   port: 3306,
@@ -16,7 +15,6 @@ const db = mysql.createConnection({
   password: "senhaAlunos",
   database: "usuarios_site"
 });
-// Rota de cadastro
 app.post("/cadastrar", (req, res) => {
   const { nome, email, password } = req.body;
 
@@ -32,7 +30,6 @@ app.post("/cadastrar", (req, res) => {
   });
 });
 
-// Rota de login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
