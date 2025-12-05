@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
+const serverless = require("serverless-http");
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,10 @@ const db = mysql.createConnection({
   user: "alunos",
   password: "senhaAlunos",
   database: "usuarios_site"
+});
+
+app.get("/", (req, res) => {
+  res.send("API Edutec funcionando!");
 });
 
 app.post("/cadastrar", (req, res) => {
@@ -40,4 +45,5 @@ app.post("/login", (req, res) => {
   });
 });
 
-module.exports = app;
+
+module.exports = serverless(app);
