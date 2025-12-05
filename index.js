@@ -3,8 +3,6 @@ const cors = require("cors");
 const mysql = require("mysql2");
 
 const app = express();
-const port = 3333;
-
 app.use(cors());
 app.use(express.json());
 
@@ -15,9 +13,9 @@ const db = mysql.createConnection({
   password: "senhaAlunos",
   database: "usuarios_site"
 });
+
 app.post("/cadastrar", (req, res) => {
   const { nome, email, password } = req.body;
-
   const query = "INSERT INTO usuarios (nome, email, password) VALUES (?, ?, ?)";
   db.query(query, [nome, email, password], (err) => {
     if (err) {
@@ -32,7 +30,6 @@ app.post("/cadastrar", (req, res) => {
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-
   const query = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
   db.query(query, [email, password], (err, results) => {
     if (err) return res.status(500).json({ message: "Erro no login." });
@@ -43,6 +40,4 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
-});
+module.exports = app;
